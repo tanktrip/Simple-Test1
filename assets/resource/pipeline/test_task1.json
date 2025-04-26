@@ -1,0 +1,131 @@
+{
+    "start_game": {
+        "recognition": "OCR",
+        "expected": "开放空间",
+        "action": "Click",
+        "target_offset": [
+            0,
+            -50,
+            0,
+            0
+        ],
+        "next": [
+            "get_in_game"
+        ]
+    },
+    "get_in_game": {
+        "recognition": "OCR",
+        "expected": "公告",
+        "action": "Click",
+        "target": [
+            200,
+            200,
+            10,
+            10
+        ],
+        "next": [
+            "click_brochure"
+        ]
+    },
+    "click_brochure": {
+        "recognition": "OCR",
+        "expected": "手册",
+        "action": "Click",
+        "target_offset": [
+            0,
+            -25,
+            0,
+            0
+        ],
+        "next": [
+            "swtich_instance_category"
+        ]
+    },
+    "swtich_instance_category": {
+        "recognition": "OCR",
+        "expected": "世界搜索",
+        "action": "Click",
+        "next": [
+            "click_switch_word"
+        ]
+    },
+    "click_switch_word": {
+        "recognition": "OCR",
+        "expected": "前往",
+        "order_by": "Vertical",
+        "action": "Click",
+        "next": [
+            "make_sure_swtich_word"
+        ]
+    },
+    "make_sure_swtich_word": {
+        "recognition": "OCR",
+        "expected": "确定",
+        "action": "Click",
+        "next": [
+            "wait_for_loading"
+        ]
+    },
+    "wait_for_loading": {
+        "recognition": "OCR",
+        "expected": "Now Loading",
+        "inverse": true,
+        "next": [
+            "close_to_instance"
+        ]
+    },
+    "close_to_instance": {
+        "action": "Swipe",
+        "begin": [
+            100,
+            600,
+            10,
+            10
+        ],
+        "end": [
+            100,
+            520,
+            10,
+            10
+        ],
+        "duration": 500,
+        "next": [
+            "get_in_instance"
+        ]
+    },
+    "get_in_instance": {
+        "recognition": "OCR",
+        "expected": "点击开始",
+        "action": "Click",
+        "timeout": 500,
+        "next": [
+            "continue_choose"
+        ],
+        "on_error": [
+            "click_brochure"
+        ]
+    },
+    "continue_choose": {
+        "recognition": "OCR",
+        "expected": "已完成",
+        "action": "Click",
+        "post_wait_freezes": 100,
+        "next": [
+            "continue_choose_again"
+        ]
+    },
+    "continue_choose_again": {
+        "recognition": "OCR",
+        "expected": "开始",
+        "action": "Click",
+        "next": [
+            "start_fight"
+        ]
+    },
+    "start_fight": {
+        "recognition": "OCR",
+        "expected": "出战",
+        "action": "Click",
+        "next": []
+    }
+}
