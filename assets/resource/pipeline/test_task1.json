@@ -10,12 +10,37 @@
             0
         ],
         "next": [
+            "start_check"
+        ]
+    },
+    "start_game_alt": {
+        "recognition": "TemplateMatch",
+        "template": "大头.png",
+        "action": "Click",
+        "next": [
+            "start_check"
+        ]
+    },
+    "start_check": {
+        "recognition": "TemplateMatch",
+        "template": "nekotan.png",
+        "next": [
+            "start_check_again"
+        ],
+        "on_error": [
+            "start_game_alt"
+        ]
+    },
+    "start_check_again": {
+        "recognition": "OCR",
+        "expected": "资源",
+        "next": [
             "get_in_game"
         ]
     },
     "get_in_game": {
         "recognition": "OCR",
-        "expected": "公告",
+        "expected": "适龄提示",
         "action": "Click",
         "target": [
             200,
