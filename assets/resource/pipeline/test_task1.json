@@ -1,5 +1,14 @@
 {
-    "start_game": {
+    "start_game":{
+        "next":[
+            "start_game_OCR",
+            "start_game_template"
+        ],
+        "on_error":[
+            "start_game"
+        ]
+    },
+    "start_game_OCR": {
         "recognition": "OCR",
         "expected": "开放空间",
         "action": "Click",
@@ -10,33 +19,77 @@
             0
         ],
         "next": [
-            "start_check"
+            "start_check_OCR"
         ]
     },
-    "start_game_alt": {
+    "start_game_template": {
         "recognition": "TemplateMatch",
         "template": "大头.png",
         "action": "Click",
         "next": [
-            "start_check"
+            "start_check_template"
         ]
     },
-    "start_check": {
-        "recognition": "TemplateMatch",
-        "template": "nekotan.png",
+    "start_check_OCR": {
+        "recognition": "OCR",
+        "expected": "开放空间",
+        "inverse": true,
         "next": [
             "start_check_again"
         ],
         "on_error": [
-            "start_game_alt"
+            "start_game"
         ]
     },
-    "start_check_again": {
+    "start_check_template":{
+        "recognition": "TemplateMatch",
+        "template": "大头.png",
+        "inverse": true,
+        "next": [
+            "start_check_again"
+        ],
+        "on_error":[
+            "start_game"
+        ]
+    },
+    "start_check_again":{
+        "next":[
+            "start_check_again_p1",
+            "start_check_again_p2"
+        ],
+        "on_error":[
+            "start_game"//"wait for exit game"
+        ]
+    },
+    "exit_game":{
+        "action": "DoNothing",//custom action
+        "next":[
+            "kill_task"
+        ]
+    },
+    "kill_task":{
         "recognition": "OCR",
-        "expected": "资源",
+        "expected":"全部清除",
+        "action": "Click",
+        "next":[
+            "start_game"
+        ]
+    },
+    "start_check_again_p1": {
+        "recognition": "TemplateMatch",
+        "template": "nekotan.png",
         "next": [
             "get_in_game"
         ]
+    },
+    "start_check_again_p2":{
+        "recognition": "TemplateMatch",
+        "template": "ekoneko.png",
+        "next": [
+            "get_in_game"
+        ]
+    },
+    "update_game":{
     },
     "get_in_game": {
         "recognition": "OCR",
@@ -49,6 +102,59 @@
             10
         ],
         "next": [
+            "wait_for_loading1"
+        ],
+        "on_error":[
+            "get_in_game"
+        ]
+    },
+    "wait_for_loading1":{
+        "recognition": "TemplateMatch",
+        "template": "now_loading.png",
+        "inverse": true,
+        "next":[
+            "daily_supply",
+            "daily_bonus"
+        ],
+        "on_error":[
+            "click_brochure"
+        ]
+    },
+    "daily_supply":{
+        "recognition": "OCR",
+        "expected": "货币",
+        "action":"Click",
+        "target_offset":[0,-50,0,0],
+        "next":[
+            "daily_bonus"
+        ] 
+    },
+    "daily_bonus":{
+        "next":[
+            "daily_bonus_click",
+            "daily_bonus_swipe"
+        ]
+    },
+    "daily_bonus_click":{
+        "recognition": "OCR",
+        "expected":"可领取",
+        "action": "Click",
+        "next":[
+            "exit_daily_bonus"
+        ]
+    },
+    "daily_bonus_swipe":{
+        "action": "Swipe",
+        "begin":[800,600,10,10],
+        "end":[500,600,10,10],
+        "next":[
+            "daily_bonus"
+        ]
+    },
+    "exit_daily_bonus":{
+        "action": "Click",
+        "target": [1227,44,8,8],
+        "next":[
             "click_brochure"
         ]
     },
